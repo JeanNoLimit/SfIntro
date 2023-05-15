@@ -10,8 +10,46 @@
          <h1>Ajouter un employé</h1>
     {% endif %}
    
-   
-    {{ form(formAddEmploye) }}
+   {# VERSION SIMPLE #}
+    {# {{ form(formAddEmploye) }} #}
+
+    {# VERSION CUSTOMIZE #}
+    {# https://symfony.com/doc/current/form/form_customization.html #}
+
+    {{ form_start(formAddEmploye) }}
+
+    {# <div class="my-custom-class-for-errors">
+        {{ form_errors(form) }}
+    </div> #}
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(formAddEmploye.nom) }}
+        </div>
+        <div class="col" id="some-custom-id">
+            {{ form_row(formAddEmploye.prenom) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ form_row(formAddEmploye.dateNaissance) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col" id="some-custom-id">
+            {{ form_row(formAddEmploye.ville) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ form_row(formAddEmploye.dateEmbauche) }}
+        </div>
+        <div class="col" id="some-custom-id">
+            {{ form_row(formAddEmploye.entreprise) }}
+        </div>
+    </div>
+{{ form_end(formAddEmploye) }}
 
 
 {% endblock %}
