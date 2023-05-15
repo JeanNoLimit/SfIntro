@@ -10,7 +10,8 @@
 
     {% for employe in employes %}
         <a href="{{ path('show_employe', { 'id': employe.id})}}">{{employe}}</a>
-        <a class="btn btn-warning" href="{{path('edit_employe', {'id': employe.id})}}"> edit</a><br>
+        <a class="btn btn-warning" href="{{path('edit_employe', {'id': employe.id})}}"> edit</a> 
+        <a class="btn btn-danger" href="{{path('delete_employe', {'id': employe.id})}}">delete</a><br>
     {% endfor %}
 {% endblock %}
 
