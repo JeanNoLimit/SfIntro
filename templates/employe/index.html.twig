@@ -5,6 +5,9 @@
 {% block body %}
     <h1>Liste des employés</h1>
 
+    <a class="btn btn-primary" href="{{path('add_employe')}}">Ajouter un employé</a> <br>
+
+
     {% for employe in employes %}
         <a href="{{ path('show_employe', { 'id': employe.id})}}">{{employe}}</a><br>
     {% endfor %}
