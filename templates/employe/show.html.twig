@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'un employé{% endblock %}
+
+{% block body %}
+    {# Il suffit d'écrire {{employe}} pour obtenir son Prénom + Nom à cause du __toString. Sinon il aurait fallut écrire employe.nom ~' '~ employe.prenom #}
+    <h1>{{employe}}</h1>
+    <p>
+
+
+        Ville: {{ employe.ville }} <br>
+        Entreprise : {{ employe.entreprise}} <br>
+
+        {# Attention : Date d'embauche renvoie un objet date. Pour convertir la date en string il existe 2 solutions.
+        1. Modifier dans la class Employé la fonction getDateEmbauche pour formater la date. (Peu pratique si on veut utiliser getDate dans des fonctions p.e. pour calculer le nombre d'année d'ancienneté.) 
+        2. Utiliser la fonction filters de twig : date . (https://twig.symfony.com/doc/3.x/filters/date.html) #}
+        Date d'embauche : {{employe.dateEmbauche|date("m/d/Y")}}<br>
+        Date de naissance : {{employe.dateNaissance|date("m/d/Y")}} ({{employe.age}}) ans <br>
+    </p>
+
+
+
+{% endblock %}
