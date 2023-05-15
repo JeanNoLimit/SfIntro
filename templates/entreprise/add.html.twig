@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une entreprise{% endblock %}
+
+{% block body %}
+
+    <h1>Ajouter une entreprise</h1>
+    {# form est une fonction de twig. formAddEntreprise est la variable dans le return de la fonction add du controller #}
+    {{ form(formAddEntreprise) }}
+
+
+{% endblock %}
