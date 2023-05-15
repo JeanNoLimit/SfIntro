@@ -33,8 +33,15 @@ class EntrepriseController extends AbstractController
     // 3. request -> objet....
 
     #[Route('/entreprise/add', name: "add_entreprise")]
+    //On peut créer plusieurs routes pour une même fonction
+    #[Route('/entreprise/{id}/edit', name:"edit_entreprise")]
+
     public function add(ManagerRegistry $doctrine, Entreprise $entreprise = null, Request $request): Response {
 
+
+        if(!$entreprise) {
+            $entreprise = new Entreprise();
+        }
         //Création du formulaire à partir de EntrepriseType et l'objet entreprise
         $form = $this->createForm(EntrepriseType::class, $entreprise);
 
@@ -43,7 +50,7 @@ class EntrepriseController extends AbstractController
 
         //Traitement du formulaire. Si le formulaire est soumis (clique bouton submit) et que les champs sont bien valide (equivalent à filter input)
         if ($form->isSubmitted() && $form->isValid()) {
-
+            //getData récupère les données de l'entreprise si elle existe. (vue edit)
            $entreprise = $form->getData();
            $entityMan = $doctrine->getManager();
            //Equivalent à prepare une requête sql

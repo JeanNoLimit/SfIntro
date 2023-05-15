@@ -13,7 +13,8 @@
         {# ~ permet de faire une concaténation dans un twig. le point . permet d'appeler une varible d'un objet. (remplace getRaisonSociale()) #}
         {# {{ entreprise.raisonSociale ~ ' (' ~ entreprise.ville ~ ')' }} <br> #}
         {# Ou avec méthode __toString() : #}
-        <a href="{{ path('show_entreprise', {id: entreprise.id})}}">{{entreprise}}</a> <br>
+        <a href="{{ path('show_entreprise', {'id': entreprise.id})}}">{{entreprise}}</a> 
+        <a class="btn btn-warning" href="{{ path('edit_entreprise', {'id': entreprise.id})}}"> edit</a><br>
 
     {% endfor %}
 

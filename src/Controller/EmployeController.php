@@ -30,8 +30,12 @@ class EmployeController extends AbstractController
     }
 
     #[Route('/employe/add', name: "add_employe")]
+    #[Route('/employe/{id}/edit', name: "edit_employe")]
     public function add(ManagerRegistry $doctrine, Employe $employe = null, Request $request): Response {
 
+        if(!$employe) {
+            $employe = new Employe();
+        }
         //Création du formulaire à partir de EmployeType et l'objet employe
         $form = $this->createForm(EmployeType::class, $employe);
 
