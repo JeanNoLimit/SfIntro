@@ -36,7 +36,7 @@ class EntrepriseController extends AbstractController
     //On peut créer plusieurs routes pour une même fonction
     #[Route('/entreprise/{id}/edit', name:"edit_entreprise")]
 
-    public function add(ManagerRegistry $doctrine, Entreprise $entreprise = null, Request $request): Response {
+    public function add(EntityManagerInterface $entityManager, Entreprise $entreprise = null, Request $request): Response {
 
 
         if(!$entreprise) {
@@ -52,11 +52,11 @@ class EntrepriseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             //getData récupère les données de l'entreprise si elle existe. (vue edit)
            $entreprise = $form->getData();
-           $entityMan = $doctrine->getManager();
+           
            //Equivalent à prepare une requête sql
-           $entityMan->persist($entreprise);
+           $entityManager->persist($entreprise);
            //Equivalent à execute. flush > envoie des données en BDD. Insert into
-           $entityMan->flush();
+           $entityManager->flush();
 
            return $this->redirectToRoute('app_entreprise');
         }
@@ -64,14 +64,24 @@ class EntrepriseController extends AbstractController
         //Vue pour afficher le formulaire
         return $this->render('entreprise/add.html.twig', [
             // createView pour généré visuellement le formulaire
-            'formAddEntreprise' => $form->createView()
+            'formAddEntreprise' => $form->createView(),
+            'edit' => $entreprise->getId(),
+            'entreprise' => $entreprise
             
         ]);
 
 
     }
 
+    #[Route('/entreprise/{id}/delete', name: "delete_entreprise")]
+    public function delete(EntityManagerInterface $entityManager, Entreprise $entreprise){
 
+        //Supprime en cascade automatiquement si les liens entre les tables ont bien été créés.
+        $entityManager->remove($entreprise);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_entreprise');
+    }
 
     #[Route('/entreprise/{id}', name: "show_entreprise")]
     public function show(Entreprise $entreprise): Response {

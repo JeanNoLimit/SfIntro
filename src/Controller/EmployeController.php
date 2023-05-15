@@ -58,14 +58,21 @@ class EmployeController extends AbstractController
         //Vue pour afficher le formulaire
         return $this->render('employe/add.html.twig', [
             // createView pour généré visuellement le formulaire
-            'formAddEmploye' => $form->createView()
-            
+            'formAddEmploye' => $form->createView(),
+            'edit' => $employe->getId(),
+            'employe' => $employe           
         ]);
-
 
     }
 
+    #[Route('/employe/{id}/delete', name: "delete_employe")]
+    public function delete(EntityManagerInterface $entityManager, Employe $employe){
+        
+        $entityManager->remove($employe);
+        $entityManager->flush();
 
+        return $this->redirectToRoute('app_employe');
+    }
 
 
     #[Route('/employe/{id}', name: "show_employe")]
